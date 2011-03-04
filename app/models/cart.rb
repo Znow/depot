@@ -1,5 +1,6 @@
 class Cart < ActiveRecord::Base
-  has_many :line_items, :dependent => :destroy #can have many associated line_items entry's, :destroy is dependent on the carts existance
+  #can have many associated line_items entry's, :destroy is dependent on the carts existance
+  has_many :line_items, :dependent => :destroy 
   
   def add_product(product_id)
     current_item = line_items.find_by_product_id(product_id)
@@ -15,6 +16,12 @@ class Cart < ActiveRecord::Base
   
   def total_price
     line_items.to_a.sum { |item| item.total_price }
+  end
+  
+  
+  # method: total_items to define how many items there is in the cart object
+  def total_items
+    line_items.sum(:quantity) # sum of the quantity of the current line_item
   end
   
 end

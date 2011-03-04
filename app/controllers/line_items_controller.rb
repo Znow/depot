@@ -47,7 +47,7 @@ class LineItemsController < ApplicationController
     respond_to do |format|
       if @line_item.save
         format.html { redirect_to(store_url) }
-        format.js # renders a js template names create.js.rjs
+        format.js { @current_item = @line_item } # renders a js template names create.js.rjs with an instance variable 'current_item' as @line_item
         format.xml  { render :xml => @line_item, :status => :created, :location => @line_item }
       else
         format.html { render :action => "new" }
