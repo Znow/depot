@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
   default_scope :order => 'title'
-  has_many :line_items #belongs to many "orders"
+  has_many :line_items # a product can have many line_items
+  has_many :orders, :through => :line_items # a product can have many line_items that belongs to many orders
   
   before_destroy :ensure_not_referenced_by_any_line_item
   
