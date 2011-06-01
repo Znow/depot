@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.xml
   def index
-    @orders = Order.all
+    @orders = Order.paginate :page => params[:page], :order => 'created_at desc', :per_page => 10 # paginate the order object, :per_page specifies how many shown per page
 
     respond_to do |format|
       format.html # index.html.erb
